@@ -6,4 +6,6 @@
 *.fatbin
 .vscode/
 .DS_Store
-
+./logs
+*.log
+*.out

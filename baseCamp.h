@@ -1,9 +1,72 @@
-#include "baseCamp.h" // includes important moving parts of the workflow
-#include "information.h" // includes the dist info
+/* 
+    All files would include basecamp.h to get the necessary initialization,
+    general library includes, and bunch of utilities
+*/
 
-int main(int ac, char* av[])
-{
-    initiaize_ALPS();
+// cpp stl
+#include<iostream>
+#include<string>
+#include<fstream>
+#include<sstream>
+#include<ctime>
+
+// Reading Specific
+#include<coin-or/CoinMpsIO.hpp>
+#include<coin-or/CoinLpIO.hpp>
+
+// Command line options
+#include<boost/program_options.hpp>
+
+// Logging setup
+#include <boost/log/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
+#include <boost/log/sinks/text_file_backend.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
+#include <boost/log/utility/setup/console.hpp>
+#include <boost/log/sources/severity_logger.hpp>
+#include <boost/log/sources/record_ostream.hpp>
+
+#define BOOST_LOG_DYN_LINK 1
+
+// includes the dist info
+#include "information.h" 
+#include "configParser.h"
+
+namespace logging = boost::log;
+namespace src = boost::log::sources;
+namespace sinks = boost::log::sinks;
+namespace keywords = boost::log::keywords;
+
+namespace po = boost::program_options;
+
+void initiaize_ALPS() {
+    /*
+        Initializes the logger file and sets the environment
+    */
+    std::time_t epoch = std::time(nullptr);
+    std::stringstream logfile;
+    logfile << epoch;
+
+    logging::add_common_attributes();
+
+    logging::add_file_log(
+        keywords::file_name = "./logs/ALPS_"+logfile.str()+".log",                                        
+        // keywords::rotation_size = 10 * 1024 * 1024,                                   
+        // keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0), 
+        keywords::format = "[%TimeStamp%]: %Message%"
+        );
+
+    logging::add_console_log(std::cout, boost::log::keywords::format = "[%TimeStamp%]: %Message%");
+
+     logging::core::get()->set_filter
+    (
+        logging::trivial::severity >= logging::trivial::info
+    );
+}
+
+int readConfig(int ac, char* av[]) {
 
     try {
         
@@ -53,23 +116,16 @@ int main(int ac, char* av[])
             return -1;    
         }
     }
+
     catch(std::exception& e) {
         BOOST_LOG_TRIVIAL(error) << "Error in reading configuration " << e.what();
         std::cerr<< "\nALPS terminated due to error!";
         return -1;
     }
+    
     catch(...) {
         std:: string msg = "Unkown Exception!";
         BOOST_LOG_TRIVIAL(fatal)<< msg;
         std::cerr << msg <<"!\n";
     }
-
-    BOOST_LOG_TRIVIAL(info) << "Hello User! This is Alps!\n";
-    return 0;
 }
-
-
-// Error 
-// -1 : Problems in reading the configuration
-
-
