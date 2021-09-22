@@ -13,7 +13,8 @@ class Config {
         Config(po::variables_map vm);
         ~Config();
         bool Valid;
-        std::string inputFile, input_type;
+        std::string inputFile;
+        acceptableInput inputType;
         void invalidate_config();
         void parse();
 

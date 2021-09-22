@@ -3,16 +3,15 @@
     general library includes, and bunch of utilities
 */
 
+#ifndef BASECAMP_INCLUDE
+#define BASECAMP_INCLUDE
+
 // cpp stl
 #include<iostream>
 #include<string>
 #include<fstream>
 #include<sstream>
 #include<ctime>
-
-// // Reading Specific
-// #include<coin-or/CoinMpsIO.hpp>
-// #include<coin-or/CoinLpIO.hpp>
 
 // Command line options
 #include<boost/program_options.hpp>
@@ -29,7 +28,7 @@
 #include <boost/log/sources/record_ostream.hpp>
 
 // includes the dist info
-#include "information.h" 
+#include "information.h"
 
 namespace logging = boost::log;
 namespace src = boost::log::sources;
@@ -37,3 +36,19 @@ namespace sinks = boost::log::sinks;
 namespace keywords = boost::log::keywords;
 
 namespace po = boost::program_options;
+
+// Native exception type
+struct ALPS_Exception : public std::exception
+{
+	const char * what () const throw ()
+    {
+    	return "ALPS Exception";
+    }
+};
+
+// Acceptable IO Types
+enum acceptableInput {
+    LP, MPS
+};
+
+#endif
