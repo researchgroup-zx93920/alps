@@ -98,23 +98,24 @@ int main(int ac, char* av[])
         cfg.parse();
         BOOST_LOG_TRIVIAL(debug) << "Valid Configuration, Reading input model file";
         readInput(cfg.inputFile, cfg.inputType);
+
+        /* The result of a readInput call is an LP Construct >>
+        // Say your LP is in the form -
+            min C^T x
+            st. Ax <= b
+            
+        */
     }
     catch (ALPS_Exception &e) {
         BOOST_LOG_TRIVIAL(error) << "Error in reading input file" << e.what();
-        exit(-1);
+        exit(-3);
     }
     catch (...) {
         std::string msg = "Unkown Exception!";
         BOOST_LOG_TRIVIAL(fatal) << msg;
         exit(-2);
     }
+
     BOOST_LOG_TRIVIAL(info) << "Hello User! This is Alps!\n";
     return 0;
 }
-
-
-// Error 
-// -1 : Problems in reading the configuration
-// -2 : Unrecognized error
-// -3 : 
-

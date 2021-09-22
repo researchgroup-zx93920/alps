@@ -1,2 +1,2 @@
 all: 
-	g++ -std=c++11 -DBOOST_LOG_DYN_LINK *.cpp -I/opt/dist/include/ -I/usr/local/include/ -L/opt/dist/lib/ -L/usr/local/lib -lCoinUtils -lboost_program_options -lboost_log -lboost_log_setup -lboost_system -lboost_thread -lpthread -lboost_filesystem
+	g++ -std=c++11 -DBOOST_LOG_DYN_LINK *.cpp -I/opt/dist/include/ -I/usr/local/include/ -L/opt/dist/lib/ -L/usr/local/lib -lCoinUtils -lboost_program_options -lboost_log -lboost_log_setup -lboost_system -lboost_thread -lpthread -lboost_filesystem -o solve
