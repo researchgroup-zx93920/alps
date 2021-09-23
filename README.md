@@ -15,6 +15,6 @@ Mohit is keeping a track (this is un-stable right now)
 | ------------- | ------------- |
 | -1  | Problems in reading the configuration |
 | -2 | Unexpected/Unknown problem |
-| -3  | Problems in File Formet  |
+| -3  | Problems in File Format  |
 
 
