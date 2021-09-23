@@ -11,7 +11,7 @@ void set_logging() {
     logging::add_common_attributes();
     logging::register_simple_formatter_factory< logging::trivial::severity_level, char >("Severity");
     logging::add_file_log(
-        keywords::file_name = "../logs/ALPS_"+logfile.str()+".log",                                        
+        keywords::file_name = "./logs/ALPS_"+logfile.str()+".log",                                        
         // keywords::rotation_size = 10 * 1024 * 1024,                                   
         // keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0), 
         keywords::format = "[%TimeStamp%] | <%Severity%> : %Message%"
