@@ -1,0 +1,1 @@
+./bin/alps -c ./run_config.cfg

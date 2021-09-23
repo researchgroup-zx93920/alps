@@ -11,7 +11,7 @@ void set_logging() {
     logging::add_common_attributes();
     logging::register_simple_formatter_factory< logging::trivial::severity_level, char >("Severity");
     logging::add_file_log(
-        keywords::file_name = "./logs/ALPS_"+logfile.str()+".log",                                        
+        keywords::file_name = "../logs/ALPS_"+logfile.str()+".log",                                        
         // keywords::rotation_size = 10 * 1024 * 1024,                                   
         // keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0), 
         keywords::format = "[%TimeStamp%] | <%Severity%> : %Message%"
@@ -44,7 +44,9 @@ Config initialize_ALPS(int ac, char* av[]) {
         po::options_description _usage("Usage");
         _usage.add_options()
             ("inputFile,i", po::value<std::string>(), 
-            "An MPS/LP file to parse the linear program to be solved");
+            "An MPS/LP file to parse the linear program to be solved")
+            ("configFile,c", po::value<std::string>()->default_value("../run_config.cfg"), 
+            "Provide a .cfg config file of solver parameters if no definition on CMD Line");
 
         po::options_description cmdline_options;
         cmdline_options.add(generic).add(_usage);
@@ -54,8 +56,9 @@ Config initialize_ALPS(int ac, char* av[]) {
 
         po::variables_map vm;        
         po::store(po::command_line_parser(ac, av).options(cmdline_options).run(), vm);
+        notify(vm);
 
-        std::ifstream ifs("./run_config.cfg");
+        std::ifstream ifs(vm["configFile"].as<std::string>());
         po::store(parse_config_file(ifs, config_file_options), vm);
         notify(vm);
         Config cfg(vm);
