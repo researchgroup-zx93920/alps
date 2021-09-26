@@ -2,6 +2,7 @@
 #include "configParser.h"
 #include "inputParser.h"
 
+
 void set_logging() {
     
     // Now initialize logfile and set log formatting >> 
@@ -100,12 +101,18 @@ int main(int ac, char* av[])
     try {
         cfg.parse();
         BOOST_LOG_TRIVIAL(debug) << "Valid Configuration, Reading input model file";
+        
+        /* Reads the inputMPS file provided either in config or CMD
+        The result of a readInput call is an LP Construct >>
+        Say your LP is in the form -
+                min C^T x
+                st. Ax <= b
+        The result of the call is two vectors c,b and a matrix A 
+        In the general sense, matrix A is sparse therefore it is returned in a CSR form 
+        */
         readInput(cfg.inputFile, cfg.inputType);
 
-        /* The result of a readInput call is an LP Construct >>
-        // Say your LP is in the form -
-            min C^T x
-            st. Ax <= b
+        /* 
             
         */
     }
@@ -113,11 +120,11 @@ int main(int ac, char* av[])
         BOOST_LOG_TRIVIAL(error) << "Error in reading input file" << e.what();
         exit(-3);
     }
-    catch (...) {
-        std::string msg = "Unkown Exception!";
-        BOOST_LOG_TRIVIAL(fatal) << msg;
-        exit(-2);
-    }
+    // catch (...) {
+    //     std::string msg = "Unkown Exception!";
+    //     BOOST_LOG_TRIVIAL(fatal) << msg;
+    //     exit(-2);
+    // }
 
     BOOST_LOG_TRIVIAL(info) << "Hello User! This is Alps!\n";
     return 0;

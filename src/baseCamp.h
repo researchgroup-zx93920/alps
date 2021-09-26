@@ -12,6 +12,7 @@
 #include<fstream>
 #include<sstream>
 #include<ctime>
+#include<assert.h>
 
 // Command line options
 #include<boost/program_options.hpp>
