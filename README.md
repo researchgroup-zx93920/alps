@@ -10,7 +10,10 @@ Accelerated Linear Programming Solver (ALPS) is supposed to be a GPU accelerated
 ### Limitations
 
 - Alps should only accept continuous domains (no integer varaibles)
-- Alps because of limited scope should only expect LP in standard form $\{\min C^Tx : Ax = b, x \geq 0 \}$
+- Alps because of limited scope should only expect LP in following standard form 
+  
+  ![equation](https://latex.codecogs.com/svg.image?\min&space;~&space;c^Tx&space;:&space;Ax&space;=&space;b;&space;x&space;\geq&space;0)
+  
 - Alps must accept the LP problem in minimization sense
 
 #### Error Codes
