@@ -1,4 +1,4 @@
-# ALPS :mountain:
+# ALPS - In development :mountain:
 Accelerated Linear Programming Solver (ALPS) is supposed to be a GPU accelerated LP solver
 
 
