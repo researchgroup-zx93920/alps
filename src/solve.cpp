@@ -104,13 +104,26 @@ int main(int ac, char* av[])
         
         /* Reads the inputMPS file provided either in config or CMD
         The result of a readInput call is an LP Construct >>
-        Say your LP is in the form -
+        Say your LP is in the std form -
                 min C^T x
-                st. Ax <= b
+                st. Ax = b
         The result of the call is two vectors c,b and a matrix A 
         In the general sense, matrix A is sparse therefore it is returned in a CSR form 
         */
-        readInput(cfg.inputFile, cfg.inputType);
+        
+        // Description of CSR format for A
+        const double * A_elements;
+        const int * A_indices;
+        const int * A_vectorStarts;
+
+        // Description of b-vector
+        const double * b;
+
+        // Description of c-vector
+        const double * c;
+
+        readInput(cfg.inputFile, cfg.inputType, A_elements, A_indices, A_vectorStarts, b, c);
+        
 
         /* 
             

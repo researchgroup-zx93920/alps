@@ -52,4 +52,7 @@ enum acceptableInput {
     LP, MPS
 };
 
+// Error messaging control in pre-solve condition check
+#define _MAX_INTEGER_TRACES 10
+#define _MAX_INEQUALITY_TRACES 10
 #endif
