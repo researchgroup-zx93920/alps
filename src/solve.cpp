@@ -124,6 +124,8 @@ int main(int ac, char* av[])
 
         readInput(cfg.inputFile, cfg.inputType, A_elements, A_indices, A_vectorStarts, b, c);
         
+        // LP Procedure >>
+        
 
         /* 
             

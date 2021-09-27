@@ -38,7 +38,7 @@ CoinPresolveMatrix common_construction(T &fileHandler) {
     BOOST_LOG_TRIVIAL (debug) << "Verifying the sense of constraints";
     const char * row_senses = fileHandler.getRowSense();
     int _inequality_type_count = 0;
-    for (int rowIndx = 0; rowIndx < fileHandler.getNumCols(); rowIndx++) {
+    for (int rowIndx = 0; rowIndx < fileHandler.getNumRows(); rowIndx++) {
         if (row_senses[rowIndx]!='E') {
             _inequality_type_count += 1;
             if (_inequality_type_count >= _MAX_INEQUALITY_TRACES) {
@@ -48,7 +48,7 @@ CoinPresolveMatrix common_construction(T &fileHandler) {
     }
 
     if (_inequality_type_count > 0){
-        if (_integer_type_count >= _MAX_INTEGER_TRACES) {
+        if (_inequality_type_count >= _MAX_INTEGER_TRACES) {
             BOOST_LOG_TRIVIAL(error) << "> "<<_MAX_INEQUALITY_TRACES<<" inequality constraints found! Not supported in the current scope :(";
             throw ALPS_Exception();
         }
